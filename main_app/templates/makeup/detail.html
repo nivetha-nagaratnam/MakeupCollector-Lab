@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Makeup Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ makeup.name }}</span>
+    <p>Category: {{ makeup.category }}</p>
+    <p>Description: {{ makeup.description }}</p>
+    <p>Price: {{ makeup.price }}</p>
+  </div>
+</div>
+
+{% endblock %}

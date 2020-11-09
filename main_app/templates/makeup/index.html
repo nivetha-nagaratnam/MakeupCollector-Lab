@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Makeup List</h1>
+
+{% for makeup in makeups %}
+  <div class="card">
+    <a href="{% url 'detail' makeup.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ makeup.name }}</span>
+      <p>Category: {{ makeup.category }}</p>
+      <p>Description: {{ makeup.description }}</p>
+      <p>Price: {{ makeup.price }}</p>
+    </div>
+    </a>
+  </div>
+{% endfor %}
+
+{% endblock %}
