@@ -1,6 +1,5 @@
 from django.shortcuts import render
-
-# Add the following import
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from .models import Makeup
 
@@ -17,12 +16,24 @@ from .models import Makeup
 #   Makeup('Matte Lipstick', 'Lipstick', 'A creamy rich lipstick formula with high colour payoff in a no-shine matte finish.', 24)
 # ]
 
+class MakeupCreate(CreateView):
+  model = Makeup
+  fields = '__all__'
+
+class MakeupUpdate(UpdateView):
+  model = Makeup
+  fields = '__all__'
+
+class MakeupDelete(DeleteView):
+  model = Makeup
+  success_url = '/makeup/'
+
 # Define the home view
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+  return HttpResponse('<h1>Hello</h1>')
 
-def about(request):
-  return HttpResponse('<h1>About the MakeupCollector</h1>')
+# def about(request):
+#   return HttpResponse('<h1>About the MakeupCollector</h1>')
 
 def about(request):
   return render(request, 'about.html')

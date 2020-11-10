@@ -10,6 +10,10 @@
     <p>Description: {{ makeup.description }}</p>
     <p>Price: {{ makeup.price }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'makeup_update' makeup.id %}">Edit Product</a>
+    <a href="{% url 'makeup_delete' makeup.id %}">Delete Product</a>
+  </div>
 </div>
 
 {% endblock %}
