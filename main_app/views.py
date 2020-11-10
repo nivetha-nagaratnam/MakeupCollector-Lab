@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from .models import Makeup
+from .forms import ReviewsForm
 
 # class Makeup:  # Note that parens are optional if not inheriting from another class
 #   def __init__(self, name, category, description, price):
@@ -44,4 +45,16 @@ def makeup_index(request):
 
 def makeup_detail(request, makeup_id):
   makeup = Makeup.objects.get(id=makeup_id)
-  return render(request, 'makeup/detail.html', { 'makeup': makeup })
+  reviews_form = ReviewsForm()
+  return render(request, 'makeup/detail.html', { 'makeup': makeup, 'reviews_form':reviews_form })
+
+def add_review(request, makeup_id):
+  form = ReviewsForm(request.POST)
+  # validate the form
+  if form.is_valid():
+    # don't save the form to the db until it
+    # has the cat_id assigned
+    new_review = form.save(commit=False)
+    new_review.makeup_id = makeup_id
+    new_review.save()
+  return redirect('detail', makeup_id=makeup_id)
