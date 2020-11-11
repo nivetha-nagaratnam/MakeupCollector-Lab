@@ -17,6 +17,17 @@
         <a href="{% url 'makeup_delete' makeup.id %}">Delete Product</a>
       </div>
     </div>
+    {% for photo in makeup.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel pink-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+    <form action="{% url 'add_photo' makeup.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <input type="submit" class="btn" style="background-color:#e91e63" value="Upload Photo">
+    </form>
   </div>
   <div class="col s6">
     <form action="{% url 'add_review' makeup.id %}" method="post">
@@ -40,6 +51,47 @@
     </table>
   </div>
 </div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ makeup.name }}'s Dupes</h3>
+    {% if makeup.dupes.count %}
+      {% for dupe in makeup.dupes.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              $<span style="color:#e91e63">{{ dupe.price }}</span> - {{ dupe.name }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Dupes :(</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Available Dupes</h3>
+    {% if dupes.count %}
+      {% for dupe in dupes.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              $<span style="color:#e91e63">{{ dupe.price }}</span> - {{ dupe.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_dupe' makeup.id dupe.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add Dupe</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{makeup.name}} Already Has All The Dupe Available</h5>
+    {% endif %}
+  </div>
+</div>
 <script>
   var dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {
@@ -48,7 +100,6 @@
     setDefaultDate: true,
     autoClose: true
   });
-
   // add additional JS to initialize select below
   var selectEl = document.getElementById('id_rating');
   M.FormSelect.init(selectEl);

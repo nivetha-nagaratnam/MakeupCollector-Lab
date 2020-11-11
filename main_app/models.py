@@ -3,11 +3,22 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Dupe(models.Model):
+  name = models.CharField(max_length=50)
+  price = models.IntegerField()
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('dupes_detail', kwargs={'pk': self.id})
+
 class Makeup(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     description =  models.TextField(max_length=300)
     price = models.IntegerField()
+    dupes = models.ManyToManyField(Dupe)
 
     def __str__(self):
         return self.name
@@ -41,6 +52,15 @@ class Reviews(models.Model):
      # change the default sort
     class Meta:
         ordering = ['-date']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    makeup = models.ForeignKey(Makeup, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for makeup_id: {self.cat_id} @{self.url}"
+
+
 
 
 

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Dupe Details</h1>
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ dupe.name }}</span>
+        <p>Color: {{ dupe.price }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'dupes_update' dupe.id %}">Edit Dupe</a>
+        <a href="{% url 'dupes_delete' dupe.id %}">Delete Dupe</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

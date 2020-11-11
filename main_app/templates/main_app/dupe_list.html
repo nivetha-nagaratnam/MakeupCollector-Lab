@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Dupe List</h1>
+
+{% for dupe in dupe_list %}
+  <a href="{% url 'dupes_detail' dupe.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ dupe.name }}</span>
+            <p>Color: {{ dupe.price }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

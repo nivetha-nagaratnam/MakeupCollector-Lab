@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Delete Dupe</h1>
+
+  <h4>Are you sure you want to delete <span class="pink-text">{{ object.name }}</span>?</h4>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Delete!" class="btn" style="background-color:#e91e63 ">
+    <a href="{% url 'toys_detail' object.id %}">Cancel</a>
+  </form>
+{% endblock %}
