@@ -18,5 +18,6 @@ urlpatterns = [
   path('dupes/create/', views.DupeCreate.as_view(), name='dupes_create'),
   path('dupes/<int:pk>/update/', views.DupeUpdate.as_view(), name='dupes_update'),
   path('dupes/<int:pk>/delete/', views.DupeDelete.as_view(), name='dupes_delete'),
+  path('accounts/signup/', views.signup, name='signup'),
 ]
 
